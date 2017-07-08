@@ -31,7 +31,7 @@ The goals / steps of this project are the following:
 
 ### Camera Calibration
 
-#### 1. Briefly state how you computed the camera matrix and distortion coefficients. Provide an example of a distortion corrected calibration image.
+#### 1. Computing the camera matrix and distortion coefficients and an example of a distortion corrected calibration image
 
 The code for this step is contained in the cell block entitled *Compute the camera calibration matrix and distortion coefficients given a set of chessboard images.*, cells 1 - 4 of the IPython notebook located ** [here](https://github.com/jinglebot/CarND-Advanced-Lane-Lines/blob/master/notebook/detect_lane.ipynb).**
 
@@ -41,11 +41,12 @@ I then used the output `objpoints` and `imgpoints` to compute the camera calibra
 
 ![Undistorted sample image][image1]
 
-### Pipeline (single images)
+### Pipeline 
 
 #### 1. Example of a distortion-corrected image
 
 Initially, I saved the camera calibration and distortion coefficients in a `pickle` so I can use it whenever. I created a `cal_undistort()` function that takes in an image to be undistorted and camera calibration and distortion coefficients to output the undistorted image. The code is in cell block entitled *Apply a distortion correction to raw images.*, cell 5. The images came out like this: 
+
 ![Undistorted Image][image2]
 
 #### 2. Color transforms, gradients or other methods to create a thresholded binary image
