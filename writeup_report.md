@@ -48,6 +48,7 @@ I then used the output `objpoints` and `imgpoints` to compute the camera calibra
 #### 1. Example of a distortion-corrected image.
 
 To demonstrate this step, I will describe how I apply the distortion correction to one of the test images like this one:
+
 ![Undistorted Transformed Image][image2]
 
 Initially, I saved the camera calibration and distortion coefficients in a `pickle` so I can use it whenever. I created a `cal_undistort()` function that takes in an image to be undistorted and camera calibration and distortion coefficients to output the undistorted image. The code is in cell block entitled *Apply a distortion correction to raw images.*, cell 5. The images came out like this: 
@@ -56,6 +57,7 @@ Initially, I saved the camera calibration and distortion coefficients in a `pick
 #### 2. Color transforms, gradients or other methods to create a thresholded binary image.  
 
 I used a combination of color and gradient thresholds to generate a binary image. This step is under cell block entitled *Use color transforms, gradients, etc., to create a thresholded binary image.* I divided this cell block into two: the gradient thresholds (under cell block *Gradients*) and the color thresholds (under cell block *Colorspace*). In the gradients threshold, I would pre-process an image to give the grayscale version, the Sobel X and Sobel Y operators. These I need for the gradient threshold functions: the absolute Sobel, the magnitude and the direction thresholds. In the color threshold, I have the conversion to gray, RGB and HLS colorspace. I manipulated the `Red` channel in the RGB (for the white color of the lanes) and the `Lightness` and `Saturation` channels in the HLS (for the shadows on  the road and the yellow-colored lanes). Then, I combined them and, with a lot of trial and error, was able to get a `combined binary image` as well as a bonus color binary image. The code is under cell block entitled *Apply and combine thresholds*. Here's an example of my output for this step.
+
 ![Colored Binary Image and Combined Binary Image][image3]
 
 #### 3. Perspective transform and an example of a transformed image.
@@ -120,6 +122,7 @@ I implemented this step in lines # through # in my code in `yet_another_file.py`
 #### 1. Provide a link to your final video output.  Your pipeline should perform reasonably well on the entire project video (wobbly lines are ok but no catastrophic failures that would cause the car to drive off the road!).
 
 Here's a [link to my video result](./project_video.mp4)
+
 
 ---
 
