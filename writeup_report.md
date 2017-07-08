@@ -14,11 +14,11 @@ The goals / steps of this project are the following:
 * Output visual display of the lane boundaries and numerical estimation of lane curvature and vehicle position.
 
 [//]: # (Image References)
-[image1]: ./output_images/undistorted_chessboards/figure_1.jpg "Undistorted"
+[image1]: ./output_images/undistorted_chessboards/figure_1.png "Undistorted"
 [image2]: ./output_images/undistorted_test_images/test6.jpg "Road Transformed"
-[image3]: ./examples/threshold_images/figure_1-9.jpg "Binary Example"
-[image4]: ./output_images/warped_straight_lines.jpg "Warp Example"
-[image5]: ./output_images/figure_6.jpg "Fit Visual"
+[image3]: ./examples/threshold_images/figure_1-9.png "Binary Example"
+[image4]: ./output_images/figure_4-2.png "Warp Example"
+[image5]: ./output_images/figure_6.png "Fit Visual"
 [image6]: ./output_images/result_test_images/test1.jpg "Output"
 [video1]: ./project_video.mp4 "Video"
 
