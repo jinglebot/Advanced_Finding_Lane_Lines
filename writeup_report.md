@@ -19,8 +19,8 @@ The goals / steps of this project are the following:
 [image2-1]: ./output_images/undistorted_test_images/figure_1-1.jpg "Undistorted Road Image"
 [image3]: ./examples/threshold_images/figure_1-9.jpg "Binary Example"
 [image4]: ./examples/warped_straight_lines.jpg "Warp Example"
+[image5]: ./examples/figure_6.jpg "Fit Visual"
 
-[image5]: ./examples/color_fit_lines.jpg "Fit Visual"
 [image6]: ./examples/example_output.jpg "Output"
 [video1]: ./project_video.mp4 "Video"
 
@@ -91,9 +91,17 @@ I verified that my perspective transform was working as expected by drawing the 
 
 #### 4. Describe how (and identify where in your code) you identified lane-line pixels and fit their positions with a polynomial?
 
-Then I did some other stuff and fit my lane lines with a 2nd order polynomial kinda like this:
+Under the code block entitled *Detect lane pixels and fit to find the lane boundary.*, I have 4 functions. The first one is in the first cell of the block and it's called `detect_lane_boundary()`. It takes in the perspective-transformed binary image called `binary_warped` and, using the histogram and the sliding window technique, detects which part of the image has the highest binary values on its left and right half. Those binary values are converted to 2nd order polynomial line equations which can then be plotted to give you, tadah, the lane lines: values, images and all. 
 
-![alt text][image5]
+The second function in the block is called `detect_lane_boundary2()`. This function takes in and uses also a binary warped image and takes the line values from a previous image (if it's a series of images, like a video) to easily detect the lane lines in the current image. The second function skips the histogram and sliding windows part of the first function.
+
+Since I was already using the two lane detection functions with the histograms and sliding windows, I skipped the third one which is called `detect_lane_boundary3()` which employs convolutions. 
+
+The last function in the block is where `Line class` comes in and the smoothing average is computed. The function is called `detect_smoothed_lanes()` under the code block entitled *Apply smoothing average*. The function takes in the left and right lane line values and stores them in a `Line class` array. The averages for the values for up to `iterations = 10` are computed and returned as results. If an image fed in the function is good (meaning, the lane lines were detected), the lane values of the image is included in the computation of the averages. If it's a bad image (meaning, the lines detected have unrealistic values), then it is not included and considered undetected. By filtering the images this way, the next image can have the option to use the lane lines in the previous image (if detected) to find its own lane lines using `detect_lane_boundary2()`. Nevertheless, whether good or bad image, the average values will be returned to be used in the next series of functions.
+
+The sample image output of these functions are like this:
+
+![Detected lane line boundaries][image5]
 
 #### 5. Describe how (and identify where in your code) you calculated the radius of curvature of the lane and the position of the vehicle with respect to center.
 
