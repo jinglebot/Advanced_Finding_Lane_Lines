@@ -26,7 +26,7 @@ The goals / steps of this project are the following:
 
 ### Writeup / README
 
-#### 1. [My write up report](https://github.com/jinglebot/CarND-Advanced-Lane-Lines/blob/master/writeup_report.md)
+#### 1. [My write up report](https://github.com/jinglebot/Advanced_Finding_Lane_Lines/blob/master/writeup_report.md)
 
 
 ### Camera Calibration

@@ -26,7 +26,7 @@ The goals / steps of this project are the following:
 
 ### Writeup / README
 
-#### 1. [My write up report](https://github.com/jinglebot/CarND-Advanced-Lane-Lines/blob/master/writeup_report.md) 
+#### 1. [My write up report](https://github.com/jinglebot/Advanced_Finding_Lane_Lines/blob/master/writeup_report.md)
 
 
 ### Camera Calibration
@@ -41,11 +41,11 @@ I then used the output `objpoints` and `imgpoints` to compute the camera calibra
 
 ![Undistorted sample image][image1]
 
-### Pipeline 
+### Pipeline
 
 #### 1. Example of a distortion-corrected image
 
-Initially, I saved the camera calibration and distortion coefficients in a `pickle` so I can use it whenever. I created a `cal_undistort()` function that takes in an image to be undistorted and camera calibration and distortion coefficients to output the undistorted image. The code is in cell block entitled *Apply a distortion correction to raw images.*, cell 5. The images came out like this: 
+Initially, I saved the camera calibration and distortion coefficients in a `pickle` so I can use it whenever. I created a `cal_undistort()` function that takes in an image to be undistorted and camera calibration and distortion coefficients to output the undistorted image. The code is in cell block entitled *Apply a distortion correction to raw images.*, cell 5. The images came out like this:
 
 ![Undistorted Image][image2]
 
@@ -63,13 +63,13 @@ The code for my perspective transform is under cell block entitled *Apply a pers
     img_size = (img.shape[1], img.shape[0])
     # left,top --> left,bottom --> right,bottom --> right, top
     top = img_size[1] * 0.62
-    bottom = img_size[1] 
+    bottom = img_size[1]
     left_top = img_size[0] * 0.47
     right_top = img_size[0] * 0.53
     left_bottom = img_size[0] * 0.155
     right_bottom = img_size[0] * 0.87
     src = np.float32 ([[left_top, top], [left_bottom,bottom], [right_bottom, bottom], [right_top, top]])
-    dst = np.float32([[img_size[0] /4, 0], [img_size[0] /4, img_size[1]], 
+    dst = np.float32([[img_size[0] /4, 0], [img_size[0] /4, img_size[1]],
                 [img_size[0] * 3/4, img_size[1] ], [img_size[0] * 3/4, 0]])
 ```
 
@@ -88,13 +88,13 @@ I verified that my perspective transform was working as expected by drawing the 
 
 #### 4. Identifying lane-line pixels and fitting their positions with a polynomial
 
-Under the code block entitled *Detect lane pixels and fit to find the lane boundary.*, I have 4 functions. The first one is in the first cell of the block and it's called `detect_lane_boundary()`. It takes in the perspective-transformed binary image called `binary_warped` and, using the histogram and the sliding window technique, detects which part of the image has the highest binary values on its left and right half. Those binary values are converted to 2nd order polynomial line equations which can then be plotted to give you, tadah, the lane lines: values, images and all. 
+Under the code block entitled *Detect lane pixels and fit to find the lane boundary.*, I have 4 functions. The first one is in the first cell of the block and it's called `detect_lane_boundary()`. It takes in the perspective-transformed binary image called `binary_warped` and, using the histogram and the sliding window technique, detects which part of the image has the highest binary values on its left and right half. Those binary values are converted to 2nd order polynomial line equations which can then be plotted to give you, tadah, the lane lines: values, images and all.
 
 The second function in the block is called `detect_lane_boundary2()`. This function takes in and uses also a binary warped image and takes the line values from a previous image (if it's a series of images, like a video) to easily detect the lane lines in the current image. The second function skips the histogram and sliding windows part of the first function.
 
-Since I was already using the two lane detection functions with the histograms and sliding windows, I skipped the third one which is called `detect_lane_boundary3()` which employs convolutions. 
+Since I was already using the two lane detection functions with the histograms and sliding windows, I skipped the third one which is called `detect_lane_boundary3()` which employs convolutions.
 
-The last function in the block is where `Line class` comes in and the smoothing average is computed. The function is called `detect_smoothed_lanes()` under the code block entitled *Apply smoothing average*. The function takes in the left and right lane line values and stores them in a `Line class` array. The averages for the values for up to `iterations = 10` are computed and returned as results. If an image fed in the function is good (meaning, the lane lines were detected), the lane values of the image is included in the computation of the averages. If it's a bad image (meaning, the lines detected have unrealistic values), then it is not included and considered undetected. By filtering the images this way, the next image can have the option to use the lane lines in the previous image (if detected) to find its own lane lines using `detect_lane_boundary2()`. Nevertheless, whether good or bad image, the average values will be returned and only the ones to be used in the next series of functions. 
+The last function in the block is where `Line class` comes in and the smoothing average is computed. The function is called `detect_smoothed_lanes()` under the code block entitled *Apply smoothing average*. The function takes in the left and right lane line values and stores them in a `Line class` array. The averages for the values for up to `iterations = 10` are computed and returned as results. If an image fed in the function is good (meaning, the lane lines were detected), the lane values of the image is included in the computation of the averages. If it's a bad image (meaning, the lines detected have unrealistic values), then it is not included and considered undetected. By filtering the images this way, the next image can have the option to use the lane lines in the previous image (if detected) to find its own lane lines using `detect_lane_boundary2()`. Nevertheless, whether good or bad image, the average values will be returned and only the ones to be used in the next series of functions.
 
 The sample image output of these functions are like this:
 
@@ -128,6 +128,6 @@ Here's a [link to my video result](./project_video_output.mp4)
 
 In this project, I used `classes` to be able to store averages that will smoothen the lanes in the video. I used `class methods` to store the line values in the `classes`' arrays as well as their mean values. By having a separate function for each step, my goal was to make the code more understandable. But with all the input and output of the same variables from one function to another, it could create a lot of chances for error. If I were going to pursue this project further, I would streamline the number of functions to an acceptable yet understandable number.
 
-The selection of values to use for the color and gradient thresholds were time consuming. If I were going to pursue this project further, I would also create a dashboard with control buttons and threshold counters for tweaking the values as well as what the image would look like when the values are tweaked. 
+The selection of values to use for the color and gradient thresholds were time consuming. If I were going to pursue this project further, I would also create a dashboard with control buttons and threshold counters for tweaking the values as well as what the image would look like when the values are tweaked.
 
-And lastly, my lane_detection code depends solely on the lanespace and curve values. If there are no lanes and curve values, then the code will fail. The code can accept bad images up to a certain extent but if there are no good images to average then it'll also fail. If I were going to pursue this project further, I would find other ways of detecting the path other than lane lines and curves. 
+And lastly, my lane_detection code depends solely on the lanespace and curve values. If there are no lanes and curve values, then the code will fail. The code can accept bad images up to a certain extent but if there are no good images to average then it'll also fail. If I were going to pursue this project further, I would find other ways of detecting the path other than lane lines and curves.
